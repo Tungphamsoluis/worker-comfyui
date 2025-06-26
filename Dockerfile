@@ -52,8 +52,6 @@ RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux /comfyui/cust
 RUN pip3 install --upgrade --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 \
     && pip3 install --upgrade -r requirements.txt
 
-RUN pip3 install runpod requests    
-
 # Support for the network volume
 ADD src/extra_model_paths.yaml ./
 
