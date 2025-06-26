@@ -117,6 +117,16 @@ RUN if [ "$MODEL_TYPE" = "flux1-dev-fp8" ]; then \
       wget -q -O models/checkpoints/flux1-dev-fp8.safetensors https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors; \
     fi
 
+# start from a clean base image (replace <version> with the desired release)
+FROM base AS nodes
+
+# install custom nodes using comfy-cli
+RUN comfy-node-install comfyui_controlnet_aux
+
+# Copy local static input files into the ComfyUI input directory (delete if not needed)
+# Assumes you have an 'input' folder next to your Dockerfile
+COPY input/ /comfyui/input/
+
 # Stage 3: Final image
 FROM base AS final
 
