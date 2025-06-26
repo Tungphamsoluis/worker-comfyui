@@ -84,7 +84,7 @@ ARG MODEL_TYPE=flux1-dev-fp8
 WORKDIR /comfyui
 
 # Create necessary directories upfront
-RUN mkdir -p models/checkpoints models/controlnet models/vae models/unet models/clip custom_nodes
+RUN mkdir -p models/checkpoints models/controlnet models/vae models/unet models/clip
 
 # Download custom nodes
 RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux /comfyui/custom_nodes
