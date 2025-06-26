@@ -84,7 +84,10 @@ ARG MODEL_TYPE=flux1-dev-fp8
 WORKDIR /comfyui
 
 # Create necessary directories upfront
-RUN mkdir -p models/checkpoints models/controlnet models/vae models/unet models/clip
+RUN mkdir -p models/checkpoints models/controlnet models/vae models/unet models/clip custom_nodes
+
+# Download custom nodes
+RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux /comfyui/custom_nodes
 
 # Download checkpoints/vae/unet/clip models to include in image based on model type
 RUN if [ "$MODEL_TYPE" = "sdxl" ]; then \
@@ -116,16 +119,6 @@ RUN if [ "$MODEL_TYPE" = "flux1-dev-fp8" ]; then \
       wget -q -O models/controlnet/control_v11f1p_sd15_depth_fp16.safetensors https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11f1p_sd15_depth_fp16.safetensors && \
       wget -q -O models/checkpoints/flux1-dev-fp8.safetensors https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors; \
     fi
-
-# start from a clean base image (replace <version> with the desired release)
-FROM base AS nodes
-
-# install custom nodes using comfy-cli
-RUN comfy-node-install comfyui_controlnet_aux
-
-# Copy local static input files into the ComfyUI input directory (delete if not needed)
-# Assumes you have an 'input' folder next to your Dockerfile
-COPY input/ /comfyui/input/
 
 # Stage 3: Final image
 FROM base AS final
