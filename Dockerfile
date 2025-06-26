@@ -88,7 +88,7 @@ RUN mkdir -p models/checkpoints models/controlnet models/vae models/unet models/
 
 
 # Download custom nodes
-RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux /comfyui/custom_nodes
+RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux /comfyui/custom_nodes/comfyui_controlnet_aux
 
 RUN pip3 install --upgrade --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 \
     && pip3 install --upgrade -r requirements.txt
