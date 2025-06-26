@@ -84,7 +84,7 @@ ARG MODEL_TYPE=flux1-dev-fp8
 WORKDIR /comfyui
 
 # Create necessary directories upfront
-RUN mkdir -p models/checkpoints models/vae models/unet models/clip
+RUN mkdir -p models/checkpoints models/controlnet models/vae models/unet models/clip
 
 # Download checkpoints/vae/unet/clip models to include in image based on model type
 RUN if [ "$MODEL_TYPE" = "sdxl" ]; then \
@@ -112,6 +112,8 @@ RUN if [ "$MODEL_TYPE" = "flux1-dev" ]; then \
     fi
 
 RUN if [ "$MODEL_TYPE" = "flux1-dev-fp8" ]; then \
+      wget -q -O models/checkpoints/architecturerealmix_v11.safetensors https://huggingface.co/soinov/My_models/resolve/491eb1211acda17c28891c0c1b4c5cade48c2859/ArchModels/architecturerealmix_v11.safetensors && \
+      wget -q -O models/controlnet/control_v11f1p_sd15_depth_fp16.safetensors https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11f1p_sd15_depth_fp16.safetensors && \
       wget -q -O models/checkpoints/flux1-dev-fp8.safetensors https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors; \
     fi
 
