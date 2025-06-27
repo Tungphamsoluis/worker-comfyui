@@ -51,6 +51,11 @@ WORKDIR /comfyui
 # Download custom nodes
 RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux /comfyui/custom_nodes/comfyui_controlnet_aux
 
+# Tải ZoeDepth model
+RUN mkdir -p /root/.cache/zoe && \
+    wget https://huggingface.co/lllyasviel/Annotators/resolve/main/zoe_d/network-snapshot-300000.pth \
+    -O /root/.cache/zoe/network-snapshot-300000.pth
+    
 RUN pip3 install --upgrade --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 \
     && pip3 install --upgrade -r requirements.txt
 
