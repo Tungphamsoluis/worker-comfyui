@@ -48,17 +48,15 @@ RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.30 --cuda-ve
 # Change working directory to ComfyUI
 WORKDIR /comfyui
 
-# Download custom nodes
-RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux /comfyui/custom_nodes/comfyui_controlnet_aux
-
+# Cài custom nodes
+RUN comfy install-node https://github.com/ltdrdata/ComfyUI-Manager.git && \
+    comfy install-node https://github.com/Fannovel16/comfyui_controlnet_aux.git
+    
 # Tải ZoeDepth model
 RUN mkdir -p /root/.cache/zoe && \
     wget https://huggingface.co/lllyasviel/Annotators/resolve/main/zoe_d/network-snapshot-300000.pth \
     -O /root/.cache/zoe/network-snapshot-300000.pth
     
-RUN pip3 install --upgrade --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 \
-    && pip3 install --upgrade -r requirements.txt
-
 # Support for the network volume
 ADD src/extra_model_paths.yaml ./
 
