@@ -63,6 +63,10 @@ RUN chmod +x /start.sh
 COPY scripts/comfy-node-install.sh /usr/local/bin/comfy-node-install
 RUN chmod +x /usr/local/bin/comfy-node-install
 
+RUN comfy-node-install \
+  ltdrdata/ComfyUI-Manager \
+  Fannovel16/comfyui_controlnet_aux \
+
 # Prevent pip from asking for confirmation during uninstall steps in custom nodes
 ENV PIP_NO_INPUT=1
 
